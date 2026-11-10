@@ -1,4 +1,3 @@
-
 package com.example.tests;
 
 import com.codeborne.selenide.Configuration;
@@ -6,6 +5,10 @@ import com.codeborne.selenide.Selenide;
 import com.example.pages.CartPage;
 import com.example.pages.LoginPage;
 import com.example.pages.ProductsPage;
+
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +20,8 @@ import java.util.List;
 
 import static com.codeborne.selenide.Selenide.open;
 
+@Epic("SauceDemo UI")
+@Feature("Product and Cart")
 class ProductCartTest {
 
     @BeforeEach
@@ -28,6 +33,7 @@ class ProductCartTest {
     }
 
     @Test
+    @Story("Sort products by price and add product to cart")
     void userCanSortProductsAndAddProductToCart() {
 
         // Login
@@ -47,7 +53,6 @@ class ProductCartTest {
         productsPage.sortByPriceLowToHigh();
         productsPage.verifyPricesOrder(expectedPrices);
 
-        // Add product and verify the cart
         // Add product to cart
         productsPage.addBackpackToCart();
 

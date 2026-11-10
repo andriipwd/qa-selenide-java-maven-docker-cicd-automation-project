@@ -3,3 +3,7 @@ target/
 .vscode/
 .DS_Store
 *.iml
+.allure/
+target/
+.idea/
+.vscode/

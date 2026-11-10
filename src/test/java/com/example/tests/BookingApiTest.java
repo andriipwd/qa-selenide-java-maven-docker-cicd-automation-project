@@ -3,6 +3,9 @@ package com.example.tests;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -11,26 +14,30 @@ import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Epic("Restful Booker API")
+@Feature("Booking management")
 class BookingApiTest {
 
     private static final String BASE_URL =
             "https://restful-booker.herokuapp.com";
 
+    @Test
+    @Story("Retrieve a non-existent booking")
+    void shouldReturn404WhenBookingDoesNotExist() {
 
-        @Test
-        void shouldReturn404WhenBookingDoesNotExist() {
-                given()
-                        .baseUri(BASE_URL)
-                        .accept("application/json")
-                        .pathParam("id", 999999999)
-                .when()
-                        .get("/booking/{id}")
-                .then()
-                        .statusCode(404);
-        }
+        given()
+                .baseUri(BASE_URL)
+                .accept("application/json")
+                .pathParam("id", 999999999)
+            .when()
+                .get("/booking/{id}")
+            .then()
+                .statusCode(404);
+    }
 
-        @Test
-        void shouldCreateBookingAndRetrieveItById() {
+    @Test
+    @Story("Create and retrieve a booking")
+    void shouldCreateBookingAndRetrieveItById() {
 
         // Prepare booking data
         Map<String, String> bookingDates = Map.of(
@@ -64,7 +71,8 @@ class BookingApiTest {
         int bookingId = createResponse.jsonPath()
                 .getInt("bookingid");
 
-        assertTrue(bookingId > 0, "Booking ID should be positive");
+        assertTrue(bookingId > 0,
+                "Booking ID should be positive");
 
         // Retrieve the created booking
         Response getResponse = given()

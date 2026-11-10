@@ -1,9 +1,12 @@
-
 package com.example.tests;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.example.pages.LoginPage;
+
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +17,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.open;
 
+@Epic("SauceDemo UI")
+@Feature("Authentication")
 class LoginTest {
 
     @BeforeEach
@@ -25,6 +30,7 @@ class LoginTest {
     }
 
     @Test
+    @Story("Successful login")
     void standardUserCanLoginSuccessfully() {
         LoginPage loginPage = new LoginPage();
 
@@ -33,6 +39,7 @@ class LoginTest {
     }
 
     @ParameterizedTest
+    @Story("Unsuccessful login validation")
     @CsvSource({
             "invalid_user, secret_sauce, 'Epic sadface: Username and password do not match any user in this service'",
             "standard_user, wrong_password, 'Epic sadface: Username and password do not match any user in this service'",

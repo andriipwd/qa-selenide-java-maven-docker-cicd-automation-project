@@ -26,4 +26,5 @@ RUN mvn -B dependency:go-offline
 COPY --chown=tester:tester src ./src
 
 # Run all tests in headless mode
-CMD ["mvn", "-B", "test", "-Dheadless=true", "-Dselenide.browserBinary=/usr/bin/chromium-browser", "-Dchromeoptions.args=--no-sandbox,--disable-dev-shm-usage"]
+
+CMD ["mvn", "-B", "clean", "test", "-Dheadless=true", "-Dselenide.browserBinary=/usr/bin/chromium-browser", "-Dchromeoptions.args=--no-sandbox,--disable-dev-shm-usage"]
