@@ -1,0 +1,25 @@
+
+name: QA Automation Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Build and Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+
+      - name: Build Docker image
+        run: docker build -t qa-automation-tests .
+
+      - name: Run automated tests
+        run: docker run --rm --shm-size=2g qa-automation-tests
